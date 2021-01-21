@@ -38,6 +38,11 @@ describe('todo', () => {
             const result = todo.isValid()
             expect(result).to.be.not.ok
         })
+        it('should have "id", "text", "when" and "status" on success', () => {
+            const todo = new Todo(makeFakeData())
+            const result = todo.isValid()
+            expect(result).to.be.ok
+        })
     })
     
 })
