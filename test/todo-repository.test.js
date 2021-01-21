@@ -34,6 +34,12 @@ describe('TodoRepository', () => {
             todoRepository.list()
             expect(todoRepository.schedule['find'].calledOnce).to.be.ok
         })
+        it('Should call insertOne with correct values', () => {
+            const insertOneSpy = sandBox.stub(todoRepository.schedule, 'insertOne')
+            const fakeTodo = mockFakeTodo()
+            todoRepository.create(fakeTodo)
+            expect(insertOneSpy.calledOnceWithExactly(fakeTodo)).to.be.ok
+        })
     })
     
 })
