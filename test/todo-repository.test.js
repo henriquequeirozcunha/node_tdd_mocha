@@ -29,6 +29,11 @@ describe('TodoRepository', () => {
             const result = todoRepository.list()
             expect(result).to.be.deep.equal(mockFakeTodo())
         })
+        it('Should call find is called once on list', () => {
+            sandBox.stub(todoRepository.schedule, 'find').returns(mockFakeTodo())
+            todoRepository.list()
+            expect(todoRepository.schedule['find'].calledOnce).to.be.ok
+        })
     })
     
 })
