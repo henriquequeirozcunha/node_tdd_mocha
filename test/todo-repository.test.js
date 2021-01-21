@@ -40,6 +40,11 @@ describe('TodoRepository', () => {
             todoRepository.create(fakeTodo)
             expect(insertOneSpy.calledOnceWithExactly(fakeTodo)).to.be.ok
         })
+        it('Should return ok on success', () => {
+            sandBox.stub(todoRepository.schedule, 'insertOne').returns(true)
+            const result = todoRepository.create()
+            expect(result).to.be.ok
+        })
     })
     
 })
