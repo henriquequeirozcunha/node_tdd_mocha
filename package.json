@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npx mocha --parallel --exit test/",
     "test:dev": "npx mocha test/ -w",
-    "test:cov": "npx nyc --reporters=html,text npm test"
+    "test:cov": "npx nyc --reporters=html,text npm test",
+    "test:coveralls": "npm run test:cov && coveralls"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,8 @@
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "sinon": "^9.2.3"
+  },
+  "devDependencies": {
+    "coveralls": "^3.1.0"
   }
 }
