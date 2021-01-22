@@ -4,7 +4,7 @@ class TodoService {
     }
 
     create(todoItem) {
-
+        return !!this.todoRepository.create(todoItem)
     }
     list() {
         return this.todoRepository.list()
