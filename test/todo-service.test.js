@@ -2,6 +2,7 @@ const { describe, it, before, beforeEach } = require('mocha')
 const { expect } = require('chai')
 const { createSandbox } = require('sinon')
 const TodoService = require('../src/todo-service')
+const Todo = require('../src/todo')
 
 const makeFakeTodoList = () => ([
     {
@@ -73,8 +74,30 @@ describe('TodoService', () => {
         }
         sut = new TodoService({ todoRepository: todoRepositoryStub })
     })
+    it('Should return a validationError(data) when validation fails', () => {
+        const todoItem = new Todo({
+            text: '',
+            when: ''
+        })
+        Reflect.deleteProperty(todoItem, 'id')
+        const validationError = {
+            error: {
+                message: 'invalid data',
+                data: todoItem
+            }
+        }
+        const result = sut.create(todoItem)
+        expect(result).to.be.deep.equal(validationError)
+
+    })
+    it('Should return a validationError(late data) when validation fails', () => {
+    })
     it('Should return true on created todoItem success', () => {
-        const result = sut.create()
+        const todoItem = new Todo({
+            text: 'any_text',
+            when: new Date()
+        })
+        const result = sut.create(todoItem)
         expect(result).to.be.deep.equal(true)
     })
   })
