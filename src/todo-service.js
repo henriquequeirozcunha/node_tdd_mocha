@@ -4,6 +4,16 @@ class TodoService {
     }
 
     create(todoItem) {
+        let validationError = {
+            error: {
+                message: 'invalid data',
+                data: todoItem
+            }
+        }
+        if(!todoItem.isValid()) {
+            return validationError
+        }
+        
         return !!this.todoRepository.create(todoItem)
     }
     list() {
