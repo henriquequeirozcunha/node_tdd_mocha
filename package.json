@@ -7,7 +7,7 @@
     "test": "npx mocha --parallel --exit test/",
     "test:dev": "npx mocha test/ -w",
     "test:cov": "npx nyc --reporter=html npm test",
-    "test:coveralls": "npm run test:cov && coveralls > index.html"
+    "test:coveralls": "npm run test:cov && coveralls > index.html" 
   },
   "keywords": [],
   "author": "",
