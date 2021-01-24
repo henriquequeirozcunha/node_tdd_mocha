@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/henriquequeirozcunha/node_tdd_mocha.svg?branch=master)](https://travis-ci.org/henriquequeirozcunha/node_tdd_mocha)
+[![Coverage Status](https://coveralls.io/repos/github/henriquequeirozcunha/node_tdd_mocha/badge.svg?branch=master)](https://coveralls.io/github/henriquequeirozcunha/node_tdd_mocha?branch=master)
 
 # **Node TDD MOCHA API** **( Em Desenvolvimento )**
 
