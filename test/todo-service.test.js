@@ -122,8 +122,6 @@ describe('TodoService', () => {
         status: 'late'
       }
 
-      console.log(expectedResult)
-
       expect(sut.todoRepository.create.calledOnceWithExactly(expectedResult)).to.be.ok
     })
     it('Should save item with pending status', () => {
@@ -146,8 +144,6 @@ describe('TodoService', () => {
         ...todoItem,
         status: 'pending'
       }
-
-      console.log(expectedResult)
 
       expect(sut.todoRepository.create.calledOnceWithExactly(expectedResult)).to.be.ok
   })
