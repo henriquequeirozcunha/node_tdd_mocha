@@ -13,8 +13,16 @@ class TodoService {
         if(!todoItem.isValid()) {
             return validationError
         }
+
+        const { when } = todoItem
+
+        const today = new Date()
+        const todo = {
+            ...todoItem,
+            status: when > today ? 'pending' : 'late'
+        }
         
-        return !!this.todoRepository.create(todoItem)
+        return !!this.todoRepository.create(todo)
     }
     list() {
         return this.todoRepository.list()
