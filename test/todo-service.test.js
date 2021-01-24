@@ -46,6 +46,9 @@ describe('TodoService', () => {
   before(() => {
     sandBox = new createSandbox()
   });
+  afterEach(() => {
+    sandBox.restore()
+  })
   describe('#List', () => {
     let sut
     beforeEach(() => {
@@ -90,8 +93,6 @@ describe('TodoService', () => {
         expect(result).to.be.deep.equal(validationError)
 
     })
-    it('Should return a validationError(late data) when validation fails', () => {
-    })
     it('Should return true on created todoItem success', () => {
         const todoItem = new Todo({
             text: 'any_text',
@@ -100,5 +101,55 @@ describe('TodoService', () => {
         const result = sut.create(todoItem)
         expect(result).to.be.deep.equal(true)
     })
+    it('Should return an object with late status if when property is before current date', () => {
+      const expectedId = '000001'
+      const uuid = require('uuid')
+      const fakeUUID = sandBox.fake.returns(expectedId)
+      sandBox.replace(uuid, 'v4', fakeUUID)
+
+      const todoItem = new Todo({
+            text: 'any_value',
+            when: new Date('2020-12-01 12:00:00 GMT-0')
+        })
+      
+      const todayTestDate = new Date('2020-12-02')
+      sandBox.useFakeTimers(todayTestDate.getTime())
+
+      sut.create(todoItem)
+
+      const expectedResult = {
+        ...todoItem,
+        status: 'late'
+      }
+
+      console.log(expectedResult)
+
+      expect(sut.todoRepository.create.calledOnceWithExactly(expectedResult)).to.be.ok
+    })
+    it('Should save item with pending status', () => {
+      const expectedId = '000001'
+      const uuid = require('uuid')
+      const fakeUUID = sandBox.fake.returns(expectedId)
+      sandBox.replace(uuid, 'v4', fakeUUID)
+
+      const todoItem = new Todo({
+            text: 'any_value',
+            when: new Date('2020-12-01 12:00:00 GMT-0')
+        })
+      
+      const todayTestDate = new Date('2020-11-30')
+      sandBox.useFakeTimers(todayTestDate.getTime())
+
+      sut.create(todoItem)
+
+      const expectedResult = {
+        ...todoItem,
+        status: 'pending'
+      }
+
+      console.log(expectedResult)
+
+      expect(sut.todoRepository.create.calledOnceWithExactly(expectedResult)).to.be.ok
+  })
   })
 })
