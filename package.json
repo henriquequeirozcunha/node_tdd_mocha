@@ -7,7 +7,7 @@
     "test": "npx mocha --parallel --exit test/",
     "test:dev": "npx mocha test/ -w",
     "test:cov": "npx nyc --reporter=html npm test",
-    "test:coveralls": "npm run test:cov"
+    "test:coveralls": "npm run test:cov && coveralls > coverage.html"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "sinon": "^9.2.3"
   },
   "devDependencies": {
-    "coveralls": "^3.1.0"
+    "coveralls": "^3.1.0",
+    "mocha-lcov-reporter": "^1.3.0"
   }
 }
